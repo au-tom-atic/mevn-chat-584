@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/messages");
 let router = express.Router();
 
-module.exports = function(io) {
+module.exports = function() {
   // Create a new message.
   router.post("/", controller.storeMessage);
   

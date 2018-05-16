@@ -34,29 +34,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
 
 //Setup routes
-app.use("/api/users", UserRoutes(io));
-app.use("/api/messages", MessageRoutes(io));
-app.use("/api/convos", ConvoRoutes(io));
+app.use("/api/users", UserRoutes());
+app.use("/api/messages", MessageRoutes());
+app.use("/api/convos", ConvoRoutes());
 
 
 app.set("port", port);
 
+//socket stuff//
 io.on('connection', (socket) => {
-  socket.on('join', (room) => {
-    console.log('user has connected to room#' + room)
-    socket.room = room
-    console.log(room)
-    socket.join(room)
-  })
+    socket.on('join', (room) => {
+      console.log('user has connected to room#' + room)
+      socket.room = room
+      console.log(room)
+      socket.join(room)
+    })
 
-  socket.on('sendchat', (data) => {
-    io.sockets.to(socket.room).emit('updatechat', data)//look for updatechat in front end
-    console.log('Sending to room #' + socket.room + ': ' + data)
-  })
+    //when the client emits 'sendChat'
+    socket.on('sendChat', (data) => {
+      io.sockets.to(socket.room).emit('updatechat', data)
+      console.log('Sending to room #' + socket.room + ': ' + data)
+    })
 
-  socket.on('disconnect', () => {
-    console.log('user has disconnected from ' + socket.room)
-  })
+    //when the client emits 'connection'
+    socket.on('disconnect', () => {
+      console.log('user has disconnected from ' + socket.room)
+    })
 })
 
 // Start Server

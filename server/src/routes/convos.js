@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/convos");
 let router = express.Router();
 
-module.exports = function(io) {
+module.exports = function() {
   // Create a new convo.
   router.post("/", controller.storeConvo);
   

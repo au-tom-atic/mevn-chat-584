@@ -62,6 +62,22 @@ UserController.getUserById = (req, res) => {
   });
 };
 
+// Retrieve User by Username
+UserController.getUserByUsername = (req, res) => {
+  let reqUsername = req.params.username;
+  let getUserByUsernamePromise = UserModel.findOne({username: reqUsername}).exec();
+  getUserByUsernamePromise
+    .then(user => {
+      return user
+      ? res.status(200).json(user)
+      : res.status(404).json({error: `Cannot find user with username: ${reqUsername}`});
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).json({error: err});
+    });
+};
+
 //update
 UserController.updateUserById = (req, res) => {
   let userId = req.params.id;

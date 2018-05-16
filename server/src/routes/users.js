@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/users");
 let router = express.Router();
 
-module.exports = function(io) {
+module.exports = function() {
   // Create a new user.
   router.post("/", controller.storeUser);
   
@@ -10,6 +10,9 @@ module.exports = function(io) {
   router.get("/", controller.getAllUsers);
   // Get user by ID
   router.get("/id/:id", controller.getUserById);
+
+  //Get user by username
+  router.get("/username/:username", controller.getUserByUsername);
 
   //login
   router.post("/login", controller.login);
