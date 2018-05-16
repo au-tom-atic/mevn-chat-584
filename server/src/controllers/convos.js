@@ -1,6 +1,7 @@
 const _ = require("underscore");
 const mongoose = require("mongoose");
 const ConvoModel = require("../models/convo");
+const MessageModel = require("../models/message");
 let ConvoController = {};
 
 //Create Convo
@@ -36,10 +37,10 @@ ConvoController.getAllConvos = (req, res) => {
     });
 };
 
-// Retrieve User by ID
+// Retrieve Convo by ID
 ConvoController.getConvoById = (req, res) => {
-  let convoID = req.params.id;
-  let getConvoByIdPromise = ConvoModel.findById(convoID).exec();
+  let convoId = req.params.id;
+  let getConvoByIdPromise = ConvoModel.findById(convoId).exec();
 
   getConvoByIdPromise
   .then(convo => {
@@ -57,6 +58,39 @@ ConvoController.getConvoById = (req, res) => {
     console.log(err);
     return res.status(500).json({ error: err });
   });
+};
+
+//update convo
+ConvoController.updateConvoById = (req, res) => {
+  let convoId = req.params.id;
+  let updateConvoByIdPromise = ConvoModel.findById(convoId).exec();
+  updateConvoByIdPromise
+    .then(convo => {
+      _.extend(convo, req.body);
+      return convo.save();
+    })
+    .then(admin => {
+      return res.status(201).json(convo);
+    })
+    .catch(err => {
+      return res.status(500).json({error: err.message});
+    });
+};
+
+//delete convo
+ConvoController.deleteConvoById = (req, res) => {
+  let convoId = req.params.id;
+  let findByIdAndRemovePromise = ConvoModel.findByIdAndRemove(convoId).exec();
+  findByIdAndRemovePromise
+    .then(convo => {
+      return convo
+      ? res.status(200).json(convo)
+      : res.status(404).json({error: `No convo found with id ${convoId}`});
+    })
+    .catch(err => {
+      console.log("Error: " + err.message);
+      return res.status(500).json({error: err.message});
+    });
 };
 
 module.exports = ConvoController;

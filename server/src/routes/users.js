@@ -15,8 +15,9 @@ module.exports = function(io) {
   router.post("/login", controller.login);
 
   //update
-
+  router.put("/id/:id", controller.updateUserById);
   //delete
+  router.delete("/id/:id", controller.deleteUserById);
   
   return router;
 

@@ -8,13 +8,21 @@ module.exports = function(io) {
   
   // Get all messages.
   router.get("/", controller.getAllMessages);
-  
-  // Get messsages
-  router.get("/id/:convoid", controller.getMessagesForConvoId);
 
-  //delete
+  //get one message by messageid
+  router.get("/id/:id", controller.getMessageById);
 
   //update
+  router.put("/id/:id", controller.updateMessageById);
+
+  //delete message by id
+  router.delete("/id/:id", controller.deleteMessageById);
+  
+  // Get messages by ConvoID
+  router.get("/convoid/:convoid", controller.getMessagesByConvoId);
+  //delete message by ConvoId
+  router.delete("/convoid/:convoid", controller.deleteMessageByConvoId);
+  
   return router;
 
 };

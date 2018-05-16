@@ -8,12 +8,16 @@ module.exports = function(io) {
   
   // Get all convos.
   router.get("/", controller.getAllConvos);
+  
   // Get convo by ID
   router.get("/id/:id", controller.getConvoById);
 
-  //delete
+  //delete convo by ID
+  router.delete("/id/:id", controller.deleteConvoById);
 
   //update
+  router.put("id/:id", controller.updateConvoById);
+
   return router;
 
 };

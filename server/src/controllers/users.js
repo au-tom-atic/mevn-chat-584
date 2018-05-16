@@ -62,6 +62,35 @@ UserController.getUserById = (req, res) => {
   });
 };
 
+//update
+UserController.updateUserById = (req, res) => {
+  let userId = req.params.id;
+  let updateUserById = UserModel.findById(userId).exec();
+  updateUserById
+    .then(user => {
+      _.extend(user, req.body);
+      return user.save();
+    })
+    .then(user => {
+      return res.status(201).json(user);
+    })
+    .catch(err => {
+      return res.status(500).json({error: err.message});
+    });
+};
+
+//delete
+UserController.deleteUserById = (req, res) => {
+  let userId = req.params.id;
+  let findByIdAndRemovePromise = UserModel.findByIdAndRemove(userId).exec();
+  findByIdAndRemovePromise
+    .then(user => {
+      return user
+        ? res.status(201).json(user)
+        : res.status(404).json({error: `No User found with id: ${userId}`});
+    })
+}
+
 //login
 UserController.login = (req, res) =>  {
   UserModel.findOne({
