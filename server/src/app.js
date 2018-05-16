@@ -31,7 +31,7 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 3000;
 
 //Setup routes
 app.use("/api/users", UserRoutes(io));
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('sendchat', (data) => {
-    io.sockets.to(socket.room).emit('updatechat', data)
+    io.sockets.to(socket.room).emit('updatechat', data)//look for updatechat in front end
     console.log('Sending to room #' + socket.room + ': ' + data)
   })
 

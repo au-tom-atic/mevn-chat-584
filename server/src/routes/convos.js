@@ -3,12 +3,12 @@ const controller = require("../controllers/convos");
 let router = express.Router();
 
 module.exports = function(io) {
-  // Create a new user.
+  // Create a new convo.
   router.post("/", controller.storeConvo);
   
-  // Get all users.
+  // Get all convos.
   router.get("/", controller.getAllConvos);
-  // Get user by ID
+  // Get convo by ID
   router.get("/id/:id", controller.getConvoById);
 
   //delete

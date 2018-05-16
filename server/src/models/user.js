@@ -4,7 +4,6 @@ var bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema, ObjectId = Schema.ObjectId;
 
 const UserSchema = new Schema({
-  userID: ObjectId,
   
   username: {
     type: String,
@@ -17,7 +16,12 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+
+  convos: [{
+        type: Schema.Types.ObjectId,
+        ref: "convo"
+    }]
 });
 
 UserSchema.pre('save', function (next) {

@@ -13,6 +13,10 @@ module.exports = function(io) {
 
   //login
   router.post("/login", controller.login);
+
+  //update
+
+  //delete
   
   return router;
 
