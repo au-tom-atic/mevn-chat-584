@@ -11,6 +11,8 @@ mongoose.Promise = global.Promise;
 
 //Import routes
 const UserRoutes = require("./routes/users");
+const MessageRoutes = require("./routes/messages");
+const ConvoRoutes = require("./routes/convos");
 
 
 // Connect to our mongoDB instance
@@ -33,6 +35,8 @@ const port = process.env.PORT || 8081;
 
 //Setup routes
 app.use("/api/users", UserRoutes(io));
+app.use("/api/messages", MessageRoutes(io));
+app.use("/api/convos", ConvoRoutes(io));
 
 
 app.set("port", port);

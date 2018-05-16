@@ -3,7 +3,7 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId
 
-const convoSchema = new Schema({
+const ConvoSchema = new Schema({
   
   convoId:{
     type: ObjectId

@@ -3,16 +3,26 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId
 
-const messageSchema = new Schema({
+const MessageSchema = new Schema({
   
-  convoId:{
+  convoId: {
     type: Schema.Types.ObjectId,
     ref: "convo"
   },
 
-  sender:{
+  text: {
+    type: String,
+    required: true
+  },
+
+  sender: {
     type: Schema.Types.ObjectId,
     ref: "user"
+  },
+
+  date: {
+    type: Date,
+    default: Date.now
   }
 
 });

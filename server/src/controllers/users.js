@@ -1,7 +1,7 @@
 const _ = require("underscore");
 const mongoose = require("mongoose");
-const jwt = require('jsonwebtoken')
-const settings = require('../config/settings')
+const jwt = require('jsonwebtoken');
+const settings = require('../config/settings');
 const UserModel = require("../models/user");
 let UserController = {};
 
@@ -86,4 +86,5 @@ UserController.login = (req, res) =>  {
     }
   });
 };
+
 module.exports = UserController;
